@@ -2,7 +2,7 @@ Summary:	Transport Independent RPC Library
 Name:		libtirpc
 Version:	0.1.7
 Release:	1
-License:	GPL
+License:	BSD-like
 Group:		Libraries
 Source0:	http://nfsv4.bullopensource.org/tarballs/tirpc/%{name}-%{version}.tar.bz2
 # Source0-md5:	6b03f1567132abf546ff44643e136621
