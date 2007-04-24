@@ -1,0 +1,12 @@
+--- libtirpc-0.1.7/tirpc/rpc/svc_auth.h.orig	2005-05-18 01:10:51.000000000 -0400
++++ libtirpc-0.1.7/tirpc/rpc/svc_auth.h	2006-08-28 08:13:37.801283000 -0400
+@@ -54,6 +54,9 @@
+ 	caddr_t svc_ah_private;
+ } SVCAUTH;
+ 
++#define SVCAUTH_DESTROY(cred)		((*(cred)->svc_ah_ops->svc_ah_destroy)())
++#define svcauth_destroy(cred)		((*(cred)->svc_ah_ops->svc_ah_destroy)())
++
+ /*
+  * Server side authenticator
+  */
