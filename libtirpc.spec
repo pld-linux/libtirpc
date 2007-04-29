@@ -1,4 +1,5 @@
 Summary:	Transport Independent RPC Library
+Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
 Version:	0.1.7
 Release:	1
@@ -32,24 +33,44 @@ V Transport Layer Interface (TLI) or an equivalent X/Open Transport
 Interface (XTI). TI-RPC is on-the-wire compatible with the TS-RPC,
 which is supported by almost 70 vendors on all major operating
 systems. TS-RPC source code (RPCSRC 4.0) remains available from
-several internet sites.
+several Internet sites.
+
+%description -l pl.UTF-8
+Ten pakiet zawiera implementację SunLib RPC niezależnego od transportu
+(TI-RPC). Ta biblioteka tworzy element podstawy dla ONC (Open Network
+Computing) i wywodzi się bezpośrednio ze źródeł Solarisa 2.3.
+
+TI-RPC to rozszerzona wersja TS-RPC wymagająca TLI (UNIX System V
+Transport Layer Interface). Jest kompatybilna w locie z TS-RPC,
+obsługiwanym przez prawie 70 producentów dla wszystkich znaczących
+systemów operacyjnych. Kod źródłowy TS-RPC (RPCSRC 4.0) pozostaje
+dostępny z różnych stron internetowych.
 
 %package devel
 Summary:	Development files for the TI-RPC library
+Summary(pl.UTF-8):	Pliki programistyczne biblioteki TI-RPC
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
 
 %description devel
-This package includes header files and libraries necessary for
-developing programs which use the TI-RPC library.
+This package includes header files necessary for developing programs
+which use the TI-RPC library.
+
+%description devel -l pl.UTF-8
+Ten pakiet zawiera pliki nagłówkowe potrzebne do tworzenia programów
+wykorzystujących bibliotekę TI-RPC.
 
 %package static
 Summary:	Static TI-RPC library
+Summary(pl.UTF-8):	Statyczna biblioteka TI-RPC
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{version}-%{release}
 
 %description static
 This package includes static TI-RPC library.
+
+%description static -l pl.UTF-8
+Ten pakiet zawiera statyczną bibliotekę TI-RPC.
 
 %prep
 %setup -q
@@ -66,7 +87,6 @@ This package includes static TI-RPC library.
 %{__autoconf}
 %{__autoheader}
 %{__automake}
-cp -f /usr/share/automake/config.sub .
 %configure \
 	--enable-gss
 
@@ -95,8 +115,8 @@ ln -sf /%{_lib}/`(cd $RPM_BUILD_ROOT/%{_lib}; echo lib*.so.*.*)` \
 %clean
 rm -rf $RPM_BUILD_ROOT
 
-%post  -p /sbin/ldconfig
-%postun -p /sbin/ldconfig
+%post	-p /sbin/ldconfig
+%postun	-p /sbin/ldconfig
 
 %files
 %defattr(644,root,root,755)
