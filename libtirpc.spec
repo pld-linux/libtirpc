@@ -19,10 +19,11 @@ Patch9:		%{name}-mutex.patch
 Patch10:	%{name}-clnt_sperror.patch
 Patch11:	%{name}-ntohs.patch
 Patch12:	%{name}-recverr.patch
+Patch13:	%{name}-link.patch
 URL:		http://nfsv4.bullopensource.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	libgssapi-devel
+BuildRequires:	libgssapi-devel >= 0.11
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 Requires:	libgssapi >= 0.11
@@ -57,6 +58,7 @@ Summary:	Development files for the TI-RPC library
 Summary(pl.UTF-8):	Pliki programistyczne biblioteki TI-RPC
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
+Requires:	libgssapi-devel >= 0.11
 
 %description devel
 This package includes header files necessary for developing programs
@@ -92,6 +94,7 @@ Ten pakiet zawiera statyczną bibliotekę TI-RPC.
 %patch10 -p1
 %patch11 -p1
 %patch12 -p1
+%patch13 -p1
 
 %build
 %{__libtoolize}
