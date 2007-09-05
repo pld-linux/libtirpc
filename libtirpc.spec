@@ -23,10 +23,10 @@ Patch13:	%{name}-link.patch
 URL:		http://nfsv4.bullopensource.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
-BuildRequires:	libgssapi-devel >= 0.11
+BuildRequires:	libgssglue-devel >= 0.1
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
-Requires:	libgssapi >= 0.11
+Requires:	libgssglue >= 0.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -58,7 +58,7 @@ Summary:	Development files for the TI-RPC library
 Summary(pl.UTF-8):	Pliki programistyczne biblioteki TI-RPC
 Group:		Development/Libraries
 Requires:	%{name} = %{version}-%{release}
-Requires:	libgssapi-devel >= 0.11
+Requires:	libgssglue-devel >= 0.1
 
 %description devel
 This package includes header files necessary for developing programs
