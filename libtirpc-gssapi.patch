@@ -18,7 +18,7 @@
        esac],[gss=false])
  AM_CONDITIONAL(GSS, test x$gss = xtrue)
 +if test x$gss = xtrue; then
-+	PKG_CHECK_MODULES(GSSAPI, libgssapi >= 0.10, [],
++	PKG_CHECK_MODULES(GSSAPI, libgssglue >= 0.1, [],
 +	AC_MSG_ERROR([Unable to locate information required to use libgssapi.]))
 +fi
  
