@@ -2,7 +2,7 @@ Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
 Version:	0.1.7
-Release:	2
+Release:	3
 License:	BSD-like
 Group:		Libraries
 Source0:	http://nfsv4.bullopensource.org/tarballs/tirpc/%{name}-%{version}.tar.bz2
@@ -20,6 +20,8 @@ Patch10:	%{name}-clnt_sperror.patch
 Patch11:	%{name}-ntohs.patch
 Patch12:	%{name}-recverr.patch
 Patch13:	%{name}-link.patch
+Patch14:	%{name}-svc-rtaddr.patch
+Patch15:	%{name}-svc-run.patch
 URL:		http://nfsv4.bullopensource.org/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -95,6 +97,8 @@ Ten pakiet zawiera statyczną bibliotekę TI-RPC.
 %patch11 -p1
 %patch12 -p1
 %patch13 -p1
+%patch14 -p1
+%patch15 -p1
 
 %build
 %{__libtoolize}
