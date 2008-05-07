@@ -9,28 +9,6 @@
  
  libtirpc_la_SOURCES = auth_none.c auth_unix.c authunix_prot.c bindresvport.c clnt_bcast.c \
          clnt_dg.c clnt_generic.c clnt_perror.c clnt_raw.c clnt_simple.c \
---- libtirpc-0.1.7/src/svc_auth_gss.c.orig	2005-05-18 01:10:50.000000000 -0400
-+++ libtirpc-0.1.7/src/svc_auth_gss.c	2006-08-09 15:15:31.000000000 -0400
-@@ -382,7 +382,7 @@ _svcauth_gss(struct svc_req *rqst, struc
- 			return (AUTH_FAILED);
- 		}
- 		auth->svc_ah_ops = &svc_auth_gss_ops;
--		SVCAUTH_PRIVATE(auth) = gd;
-+		auth->svc_ah_private = (caddr_t) gd;
- 		rqst->rq_xprt->xp_auth = auth;
- 	}
- 	else gd = SVCAUTH_PRIVATE(rqst->rq_xprt->xp_auth);
---- libtirpc-0.1.7/configure.in.orig	2005-05-18 01:10:50.000000000 -0400
-+++ libtirpc-0.1.7/configure.in	2006-08-09 15:15:31.000000000 -0400
-@@ -1,6 +1,6 @@
-                                                                                                                              
--AC_INIT(libtirpc, 0.1.5)
--AM_INIT_AUTOMAKE(libtirpc, 0.1.5)
-+AC_INIT(libtirpc, 0.1.7)
-+AM_INIT_AUTOMAKE(libtirpc, 0.1.7)
- AM_MAINTAINER_MODE
- AC_CONFIG_SRCDIR([src/auth_des.c])
- 
 --- libtirpc-0.1.7/Makefile.am.orig	2005-05-18 01:10:50.000000000 -0400
 +++ libtirpc-0.1.7/Makefile.am	2006-08-09 15:15:31.000000000 -0400
 @@ -44,5 +44,5 @@ nobase_include_HEADERS = tirpc/un-namesp
