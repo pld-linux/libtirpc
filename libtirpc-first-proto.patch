@@ -1,0 +1,17 @@
+--- rpcinfo/src/rpc_generic.c~	2008-04-14 21:14:16.000000000 +0200
++++ rpcinfo/src/rpc_generic.c	2008-05-07 23:08:35.591028676 +0200
+@@ -254,12 +254,12 @@
+ 		while ((nconf = getnetconfig(confighandle)) != NULL) {
+ 			if (strcmp(nconf->nc_protofmly, NC_INET) == 0 ||
+ 			    strcmp(nconf->nc_protofmly, NC_INET6) == 0) {
+-				if (strcmp(nconf->nc_proto, NC_TCP) == 0) {
++				if (!netid_tcp && strcmp(nconf->nc_proto, NC_TCP) == 0) {
+ 					netid_tcp = strdup(nconf->nc_netid);
+ 					thr_setspecific(tcp_key,
+ 							(void *) netid_tcp);
+ 				} else
+-				if (strcmp(nconf->nc_proto, NC_UDP) == 0) {
++				if (!netid_udp && strcmp(nconf->nc_proto, NC_UDP) == 0) {
+ 					netid_udp = strdup(nconf->nc_netid);
+ 					thr_setspecific(udp_key,
+ 						(void *) netid_udp);
