@@ -1,28 +1,16 @@
 Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
-Version:	0.1.7
-Release:	3
+Version:	1.0.8
+Release:	1
 License:	BSD-like
 Group:		Libraries
-Source0:	http://nfsv4.bullopensource.org/tarballs/tirpc/%{name}-%{version}.tar.bz2
-# Source0-md5:	6b03f1567132abf546ff44643e136621
-Patch1:		%{name}-netconfig.patch
-Patch2:		%{name}-gssapi.patch
-Patch3:		%{name}-svcauthnone.patch
-Patch4:		%{name}-ppc64.patch
-Patch5:		%{name}-svcauthdestroy.patch
-Patch6:		%{name}-compile.patch
-Patch7:		%{name}-xdr_string.patch
-Patch8:		%{name}-more-ports.patch
-Patch9:		%{name}-mutex.patch
-Patch10:	%{name}-clnt_sperror.patch
-Patch11:	%{name}-ntohs.patch
-Patch12:	%{name}-recverr.patch
-Patch13:	%{name}-link.patch
-Patch14:	%{name}-svc-rtaddr.patch
-Patch15:	%{name}-svc-run.patch
-URL:		http://nfsv4.bullopensource.org/
+Source0:	http://dl.sourceforge.net/sourceforge/libtirpc/%{name}-%{version}.tar.bz2
+# Source0-md5:	595bbda41486ea769a6a0fd720ed08dc
+Patch1:		%{name}-compile.patch
+Patch2:		%{name}-link.patch
+Patch3:		%{name}-svc-run.patch
+URL:		http://sourceforge.net/projects/libtirpc/
 BuildRequires:	autoconf
 BuildRequires:	automake
 BuildRequires:	libgssglue-devel >= 0.1
@@ -87,18 +75,6 @@ Ten pakiet zawiera statyczną bibliotekę TI-RPC.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
-%patch4 -p1
-%patch5 -p1
-%patch6 -p1
-%patch7 -p1
-%patch8 -p1
-%patch9 -p1
-%patch10 -p1
-%patch11 -p1
-%patch12 -p1
-%patch13 -p1
-%patch14 -p1
-%patch15 -p1
 
 %build
 %{__libtoolize}
@@ -117,14 +93,6 @@ install -d $RPM_BUILD_ROOT{%{_sysconfdir},/%{_lib},%{_mandir}/man{3,5}}
 
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT
-
-install man/netconfig.5 $RPM_BUILD_ROOT%{_mandir}/man5
-install man/publickey.5 $RPM_BUILD_ROOT%{_mandir}/man5
-install man/getnetconfig.3 $RPM_BUILD_ROOT%{_mandir}/man3
-install man/getnetpath.3 $RPM_BUILD_ROOT%{_mandir}/man3
-install man/publickey.3 $RPM_BUILD_ROOT%{_mandir}/man3
-install man/rpc_*.3 $RPM_BUILD_ROOT%{_mandir}/man3
-install man/rpcbind.3 $RPM_BUILD_ROOT%{_mandir}/man3
 
 mv -f $RPM_BUILD_ROOT%{_libdir}/lib*.so.* $RPM_BUILD_ROOT/%{_lib}
 rm -f $RPM_BUILD_ROOT%{_libdir}/lib*.so
@@ -150,6 +118,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_libdir}/libtirpc.so
 %{_libdir}/libtirpc.la
 %{_includedir}/tirpc
+%{_pkgconfigdir}/*.pc
 %{_mandir}/man3/*.3*
 
 %files static
