@@ -2,7 +2,7 @@ Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
 Version:	0.1.10
-Release:	1
+Release:	2
 Epoch:		1
 License:	BSD-like
 Group:		Libraries
@@ -46,7 +46,7 @@ dostępny z różnych stron internetowych.
 Summary:	Development files for the TI-RPC library
 Summary(pl.UTF-8):	Pliki programistyczne biblioteki TI-RPC
 Group:		Development/Libraries
-Requires:	%{name} = %{version}-%{release}
+Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	libgssglue-devel >= 0.1
 
 %description devel
@@ -61,7 +61,7 @@ wykorzystujących bibliotekę TI-RPC.
 Summary:	Static TI-RPC library
 Summary(pl.UTF-8):	Statyczna biblioteka TI-RPC
 Group:		Development/Libraries
-Requires:	%{name}-devel = %{version}-%{release}
+Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 
 %description static
 This package includes static TI-RPC library.
