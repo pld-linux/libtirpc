@@ -95,7 +95,7 @@ install -d $RPM_BUILD_ROOT{%{_sysconfdir},/%{_lib},%{_mandir}/man{3,5}}
 
 mv -f $RPM_BUILD_ROOT%{_libdir}/lib*.so.* $RPM_BUILD_ROOT/%{_lib}
 rm -f $RPM_BUILD_ROOT%{_libdir}/lib*.so
-ln -sf /%{_lib}/`(cd $RPM_BUILD_ROOT/%{_lib}; echo lib*.so.*.*)` \
+ln -sf /%{_lib}/$(cd $RPM_BUILD_ROOT/%{_lib}; echo lib*.so.*.*) \
 	$RPM_BUILD_ROOT%{_libdir}/libtirpc.so
 
 %clean
@@ -109,16 +109,16 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog NEWS README
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/netconfig
 %attr(755,root,root) /%{_lib}/libtirpc.so.*.*
-%ghost %attr(755,root,root) /%{_lib}/libtirpc.so.?
-%{_mandir}/man5/*.5*
+%ghost %attr(755,root,root) /%{_lib}/libtirpc.so.1
+%{_mandir}/man5/netconfig.5*
 
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libtirpc.so
 %{_libdir}/libtirpc.la
 %{_includedir}/tirpc
-%{_pkgconfigdir}/*.pc
-%{_mandir}/man3/*.3*
+%{_pkgconfigdir}/libtirpc.pc
+%{_mandir}/man3/*.3t*
 
 %files static
 %defattr(644,root,root,755)
