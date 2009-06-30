@@ -1,8 +1,12 @@
+#
+# Conditional build:
+%bcond_with	heimdal		# build with Heimdal Kerberos instead of MIT
+#
 Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
 Version:	0.1.10
-Release:	5
+Release:	6
 Epoch:		1
 License:	BSD-like
 Group:		Libraries
@@ -10,10 +14,16 @@ Source0:	http://dl.sourceforge.net/sourceforge/libtirpc/%{name}-%{version}.tar.b
 # Source0-md5:	4192ad1c683abb7eb2ca77d5fd64e54b
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-git.patch
+Patch2:		%{name}-heimdal.patch
 URL:		http://sourceforge.net/projects/libtirpc/
 BuildRequires:	autoconf
 BuildRequires:	automake
+%if %{with heimdal}
+BuildRequires:	heimdal-devel
+BuildConflicts:	libgssglue-devel
+%else
 BuildRequires:	libgssglue-devel >= 0.1
+%endif
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 Requires:	libgssglue >= 0.1
@@ -74,6 +84,7 @@ Ten pakiet zawiera statyczną bibliotekę TI-RPC.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
