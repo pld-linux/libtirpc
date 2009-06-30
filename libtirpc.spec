@@ -5,16 +5,15 @@
 Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
-Version:	0.1.10
-Release:	6
+Version:	0.2.0
+Release:	1
 Epoch:		1
 License:	BSD-like
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/sourceforge/libtirpc/%{name}-%{version}.tar.bz2
-# Source0-md5:	4192ad1c683abb7eb2ca77d5fd64e54b
+# Source0-md5:	b3b513a8825aa227deac63ea38c64f41
 Patch0:		%{name}-link.patch
-Patch1:		%{name}-git.patch
-Patch2:		%{name}-heimdal.patch
+Patch1:		%{name}-heimdal.patch
 URL:		http://sourceforge.net/projects/libtirpc/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -94,7 +93,6 @@ Ten pakiet zawiera statyczną bibliotekę TI-RPC.
 %setup -q
 %patch0 -p1
 %patch1 -p1
-%patch2 -p1
 
 %build
 %{__libtoolize}
@@ -112,6 +110,9 @@ rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sysconfdir},/%{_lib},%{_mandir}/man{3,5}}
 
 %{__make} install \
+	DESTDIR=$RPM_BUILD_ROOT
+
+%{__make} -C doc install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 mv -f $RPM_BUILD_ROOT%{_libdir}/lib*.so.* $RPM_BUILD_ROOT/%{_lib}
