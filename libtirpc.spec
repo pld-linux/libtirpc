@@ -6,7 +6,7 @@ Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
 Version:	0.2.0
-Release:	1
+Release:	2
 Epoch:		1
 License:	BSD-like
 Group:		Libraries
@@ -14,6 +14,7 @@ Source0:	http://dl.sourceforge.net/sourceforge/libtirpc/%{name}-%{version}.tar.b
 # Source0-md5:	b3b513a8825aa227deac63ea38c64f41
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-heimdal.patch
+Patch2:		%{name}-XDR_GETPOS.patch
 URL:		http://sourceforge.net/projects/libtirpc/
 BuildRequires:	autoconf
 BuildRequires:	automake
@@ -93,6 +94,7 @@ Ten pakiet zawiera statyczną bibliotekę TI-RPC.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
