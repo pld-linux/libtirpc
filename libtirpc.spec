@@ -1,12 +1,12 @@
 #
 # Conditional build:
-%bcond_with	heimdal		# build with Heimdal Kerberos instead of MIT
+%bcond_with	krb5		# build with MIT Kerberos instead of Heimdal
 #
 Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
 Version:	0.2.0
-Release:	2
+Release:	3
 Epoch:		1
 License:	BSD-like
 Group:		Libraries
@@ -18,18 +18,18 @@ Patch2:		%{name}-XDR_GETPOS.patch
 URL:		http://sourceforge.net/projects/libtirpc/
 BuildRequires:	autoconf
 BuildRequires:	automake
-%if %{with heimdal}
+%if %{with krb5}
+BuildRequires:	libgssglue-devel >= 0.1
+%else
 BuildRequires:	heimdal-devel
 BuildConflicts:	libgssglue-devel
-%else
-BuildRequires:	libgssglue-devel >= 0.1
 %endif
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
-%if %{with heimdal}
-Requires:	heimdal-libs
-%else
+%if %{with krb5}
 Requires:	libgssglue >= 0.1
+%else
+Requires:	heimdal-libs
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -62,10 +62,10 @@ Summary:	Development files for the TI-RPC library
 Summary(pl.UTF-8):	Pliki programistyczne biblioteki TI-RPC
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-%if %{with heimdal}
-Requires:	heimdal-devel
-%else
+%if %{with krb5}
 Requires:	libgssglue-devel >= 0.1
+%else
+Requires:	heimdal-devel
 %endif
 
 %description devel
