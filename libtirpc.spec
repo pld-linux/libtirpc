@@ -5,13 +5,13 @@
 Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
-Version:	0.2.0
-Release:	3
+Version:	0.2.1
+Release:	1
 Epoch:		1
 License:	BSD-like
 Group:		Libraries
 Source0:	http://dl.sourceforge.net/sourceforge/libtirpc/%{name}-%{version}.tar.bz2
-# Source0-md5:	b3b513a8825aa227deac63ea38c64f41
+# Source0-md5:	d77eb15f464bf9d6e66259eaf78b2a4e
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-heimdal.patch
 Patch2:		%{name}-XDR_GETPOS.patch
