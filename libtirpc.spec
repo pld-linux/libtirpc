@@ -131,7 +131,7 @@ rm -rf $RPM_BUILD_ROOT
 %doc AUTHORS ChangeLog NEWS README
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/netconfig
 %attr(755,root,root) /%{_lib}/libtirpc.so.*.*
-%ghost %attr(755,root,root) /%{_lib}/libtirpc.so.1
+%attr(755,root,root) %ghost /%{_lib}/libtirpc.so.1
 %{_mandir}/man5/netconfig.5*
 
 %files devel
