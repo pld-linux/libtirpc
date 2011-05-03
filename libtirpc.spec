@@ -5,16 +5,17 @@
 Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
-Version:	0.2.1
-Release:	2
+Version:	0.2.2
+Release:	1
 Epoch:		1
 License:	BSD-like
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/libtirpc/%{name}-%{version}.tar.bz2
-# Source0-md5:	d77eb15f464bf9d6e66259eaf78b2a4e
+# Source0-md5:	74c41c15c2909f7d11d9c7bfa7db6273
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-heimdal.patch
 Patch2:		%{name}-XDR_GETPOS.patch
+Patch3:		%{name}-des-in-libc.patch
 URL:		http://sourceforge.net/projects/libtirpc/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -92,6 +93,7 @@ Ten pakiet zawiera statyczną bibliotekę TI-RPC.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %{__libtoolize}
@@ -114,8 +116,8 @@ install -d $RPM_BUILD_ROOT{%{_sysconfdir},/%{_lib},%{_mandir}/man{3,5}}
 %{__make} -C doc install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-mv -f $RPM_BUILD_ROOT%{_libdir}/lib*.so.* $RPM_BUILD_ROOT/%{_lib}
-rm -f $RPM_BUILD_ROOT%{_libdir}/lib*.so
+mv -f $RPM_BUILD_ROOT%{_libdir}/libtirpc.so.* $RPM_BUILD_ROOT/%{_lib}
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libtirpc.so
 ln -sf /%{_lib}/$(cd $RPM_BUILD_ROOT/%{_lib}; echo lib*.so.*.*) \
 	$RPM_BUILD_ROOT%{_libdir}/libtirpc.so
 
@@ -139,7 +141,12 @@ rm -rf $RPM_BUILD_ROOT
 %{_libdir}/libtirpc.la
 %{_includedir}/tirpc
 %{_pkgconfigdir}/libtirpc.pc
-%{_mandir}/man3/*.3t*
+%{_mandir}/man3/bindresvport.3t*
+%{_mandir}/man3/des_crypt.3t*
+%{_mandir}/man3/getnet*.3t*
+%{_mandir}/man3/getrpc*.3t*
+%{_mandir}/man3/rpc*.3t*
+%{_mandir}/man3/rtime.3t*
 
 %files static
 %defattr(644,root,root,755)
