@@ -17,9 +17,11 @@ Patch1:		%{name}-heimdal.patch
 Patch2:		%{name}-XDR_GETPOS.patch
 Patch3:		%{name}-rpc-des-prot.patch
 Patch4:		%{name}-nis.patch
+Patch5:		%{name}-glibc-2.14.patch
 URL:		http://sourceforge.net/projects/libtirpc/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
+BuildRequires:	glibc >= 6:2.14
 %if %{with gssglue}
 BuildRequires:	libgssglue-devel >= 0.1
 %else
@@ -32,6 +34,7 @@ Requires:	libgssglue >= 0.1
 %else
 Requires:	heimdal-libs
 %endif
+Requires:	glibc >= 6:2.14
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # FIXME: this allows invalid (unresolved symbols) library to be installed.
@@ -67,6 +70,7 @@ Summary:	Development files for the TI-RPC library
 Summary(pl.UTF-8):	Pliki programistyczne biblioteki TI-RPC
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
+Requires:	glibc-devel >= 6:2.14
 %if %{with gssglue}
 Requires:	libgssglue-devel >= 0.1
 %else
@@ -100,6 +104,7 @@ Ten pakiet zawiera statyczną bibliotekę TI-RPC.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 %{__libtoolize}
@@ -134,6 +139,9 @@ for i in $RPM_BUILD_ROOT%{_includedir}/tirpc/rpc/*.h; do
 	i="$(basename $i)"
 	ln -s ../tirpc/rpc/$i $RPM_BUILD_ROOT%{_includedir}/rpc/$i
 done
+
+# obsoleted by pkgconfig
+%{__rm} $RPM_BUILD_ROOT%{_libdir}/libtirpc.la
 
 %clean
 rm -rf $RPM_BUILD_ROOT
