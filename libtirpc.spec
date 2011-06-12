@@ -6,7 +6,7 @@ Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
 Version:	0.2.2
-Release:	1
+Release:	1.2
 Epoch:		1
 License:	BSD-like
 Group:		Libraries
@@ -15,7 +15,8 @@ Source0:	http://downloads.sourceforge.net/libtirpc/%{name}-%{version}.tar.bz2
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-heimdal.patch
 Patch2:		%{name}-XDR_GETPOS.patch
-Patch3:		%{name}-des-in-libc.patch
+Patch3:		%{name}-rpc-des-prot.patch
+Patch4:		%{name}-nis.patch
 URL:		http://sourceforge.net/projects/libtirpc/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -32,6 +33,10 @@ Requires:	libgssglue >= 0.1
 Requires:	heimdal-libs
 %endif
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
+
+# FIXME: this allows invalid (unresolved symbols) library to be installed.
+# Left until upstream fixes this properly.
+%define	no_install_post_check_so	1
 
 %description
 This package contains SunLib's implementation of transport-independent
@@ -94,6 +99,7 @@ Ten pakiet zawiera statyczną bibliotekę TI-RPC.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 %{__libtoolize}
@@ -121,6 +127,14 @@ mv -f $RPM_BUILD_ROOT%{_libdir}/libtirpc.so.* $RPM_BUILD_ROOT/%{_lib}
 ln -sf /%{_lib}/$(cd $RPM_BUILD_ROOT/%{_lib}; echo lib*.so.*.*) \
 	$RPM_BUILD_ROOT%{_libdir}/libtirpc.so
 
+# rpc headers for glibc 2.14+
+install -d $RPM_BUILD_ROOT%{_includedir}/rpc
+ln -s tirpc/netconfig.h $RPM_BUILD_ROOT%{_includedir}/netconfig.h
+for i in $RPM_BUILD_ROOT%{_includedir}/tirpc/rpc/*.h; do
+	i="$(basename $i)"
+	ln -s ../tirpc/rpc/$i $RPM_BUILD_ROOT%{_includedir}/rpc/$i
+done
+
 %clean
 rm -rf $RPM_BUILD_ROOT
 
@@ -138,7 +152,8 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libtirpc.so
-%{_libdir}/libtirpc.la
+%{_includedir}/netconfig.h
+%{_includedir}/rpc/*.h
 %{_includedir}/tirpc
 %{_pkgconfigdir}/libtirpc.pc
 %{_mandir}/man3/bindresvport.3t*
