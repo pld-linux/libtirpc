@@ -6,7 +6,7 @@ Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
 Version:	0.2.2
-Release:	1.2
+Release:	1.3
 Epoch:		1
 License:	BSD-like
 Group:		Libraries
@@ -16,12 +16,13 @@ Patch0:		%{name}-link.patch
 Patch1:		%{name}-heimdal.patch
 Patch2:		%{name}-XDR_GETPOS.patch
 Patch3:		%{name}-rpc-des-prot.patch
-Patch4:		%{name}-nis.patch
-Patch5:		%{name}-glibc-2.14.patch
+Patch4:		%{name}-des-in-libc.patch
+#Patch4:		%{name}-nis.patch
+#Patch5:		%{name}-glibc-2.14.patch
 URL:		http://sourceforge.net/projects/libtirpc/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
-BuildRequires:	glibc >= 6:2.14
+BuildRequires:	glibc >= 6:2.14-9.1
 %if %{with gssglue}
 BuildRequires:	libgssglue-devel >= 0.1
 %else
@@ -34,7 +35,7 @@ Requires:	libgssglue >= 0.1
 %else
 Requires:	heimdal-libs
 %endif
-Requires:	glibc >= 6:2.14
+Requires:	glibc >= 6:2.14-9.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 # FIXME: this allows invalid (unresolved symbols) library to be installed.
@@ -70,7 +71,7 @@ Summary:	Development files for the TI-RPC library
 Summary(pl.UTF-8):	Pliki programistyczne biblioteki TI-RPC
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
-Requires:	glibc-devel >= 6:2.14
+Requires:	glibc-devel >= 6:2.14-9.1
 %if %{with gssglue}
 Requires:	libgssglue-devel >= 0.1
 %else
@@ -104,7 +105,6 @@ Ten pakiet zawiera statyczną bibliotekę TI-RPC.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-%patch5 -p1
 
 %build
 %{__libtoolize}
