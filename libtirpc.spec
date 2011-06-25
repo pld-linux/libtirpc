@@ -6,7 +6,7 @@ Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
 Version:	0.2.2
-Release:	1.3
+Release:	1.4
 Epoch:		1
 License:	BSD-like
 Group:		Libraries
@@ -132,14 +132,6 @@ mv -f $RPM_BUILD_ROOT%{_libdir}/libtirpc.so.* $RPM_BUILD_ROOT/%{_lib}
 ln -sf /%{_lib}/$(cd $RPM_BUILD_ROOT/%{_lib}; echo lib*.so.*.*) \
 	$RPM_BUILD_ROOT%{_libdir}/libtirpc.so
 
-# rpc headers for glibc 2.14+
-install -d $RPM_BUILD_ROOT%{_includedir}/rpc
-ln -s tirpc/netconfig.h $RPM_BUILD_ROOT%{_includedir}/netconfig.h
-for i in $RPM_BUILD_ROOT%{_includedir}/tirpc/rpc/*.h; do
-	i="$(basename $i)"
-	ln -s ../tirpc/rpc/$i $RPM_BUILD_ROOT%{_includedir}/rpc/$i
-done
-
 # obsoleted by pkgconfig
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libtirpc.la
 
@@ -160,8 +152,6 @@ rm -rf $RPM_BUILD_ROOT
 %files devel
 %defattr(644,root,root,755)
 %attr(755,root,root) %{_libdir}/libtirpc.so
-%{_includedir}/netconfig.h
-%{_includedir}/rpc/*.h
 %{_includedir}/tirpc
 %{_pkgconfigdir}/libtirpc.pc
 %{_mandir}/man3/bindresvport.3t*
