@@ -6,7 +6,7 @@ Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
 Version:	0.2.2
-Release:	1.4
+Release:	2
 Epoch:		1
 License:	BSD-like
 Group:		Libraries
