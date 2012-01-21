@@ -14,6 +14,7 @@ Source0:	http://downloads.sourceforge.net/libtirpc/%{name}-%{version}.tar.bz2
 # Source0-md5:	74c41c15c2909f7d11d9c7bfa7db6273
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-heimdal.patch
+# fixed in git
 Patch2:		%{name}-XDR_GETPOS.patch
 Patch3:		%{name}-rpc-des-prot.patch
 Patch4:		%{name}-des-in-libc.patch
