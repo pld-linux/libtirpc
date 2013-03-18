@@ -14,6 +14,7 @@ Source0:	http://downloads.sourceforge.net/libtirpc/%{name}-%{version}.tar.bz2
 # Source0-md5:	b70e6c12a369a91e69fcc3b9feb23d61
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-heimdal.patch
+Patch2:		%{name}-am.patch
 URL:		http://sourceforge.net/projects/libtirpc/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -93,6 +94,7 @@ Ten pakiet zawiera statyczną bibliotekę TI-RPC.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %{__libtoolize}
