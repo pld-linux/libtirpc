@@ -14,8 +14,6 @@ Source0:	http://downloads.sourceforge.net/libtirpc/%{name}-%{version}.tar.bz2
 # Source0-md5:	b70e6c12a369a91e69fcc3b9feb23d61
 Patch0:		%{name}-link.patch
 Patch1:		%{name}-heimdal.patch
-#Patch4:		%{name}-nis.patch
-#Patch5:		%{name}-glibc-2.14.patch
 URL:		http://sourceforge.net/projects/libtirpc/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
