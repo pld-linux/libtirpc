@@ -33,10 +33,6 @@ Requires:	heimdal-libs
 Requires:	glibc >= 6:2.14-9.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
-# FIXME: this allows invalid (unresolved symbols) library to be installed.
-# Left until upstream fixes this properly.
-%define	no_install_post_check_so	1
-
 %description
 This package contains SunLib's implementation of transport-independent
 RPC (TI-RPC) documentation. This library forms a piece of the base of
