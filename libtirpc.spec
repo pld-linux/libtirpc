@@ -1,7 +1,3 @@
-#
-# Conditional build:
-%bcond_with	gssglue		# build with MIT Kerberos instead of Heimdal
-#
 Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
@@ -17,18 +13,10 @@ URL:		http://sourceforge.net/projects/libtirpc/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
 BuildRequires:	glibc >= 6:2.14-9.1
-%if %{with gssglue}
-BuildRequires:	libgssglue-devel >= 0.1
-%else
 BuildRequires:	heimdal-devel
-%endif
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
-%if %{with gssglue}
-Requires:	libgssglue >= 0.1
-%else
 Requires:	heimdal-libs
-%endif
 Requires:	glibc >= 6:2.14-9.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -62,11 +50,7 @@ Summary(pl.UTF-8):	Pliki programistyczne biblioteki TI-RPC
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	glibc-devel >= 6:2.14-9.1
-%if %{with gssglue}
-Requires:	libgssglue-devel >= 0.1
-%else
 Requires:	heimdal-devel
-%endif
 
 %description devel
 This package includes header files necessary for developing programs
@@ -97,8 +81,7 @@ Ten pakiet zawiera statyczną bibliotekę TI-RPC.
 %{__aclocal}
 %{__autoconf}
 %{__automake}
-%configure \
-	--enable-gss=%{?with_gssglue:libgssglue}%{!?with_gssglue:heimdal-gssapi}
+%configure
 
 %{__make}
 
