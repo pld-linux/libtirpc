@@ -1,14 +1,15 @@
 Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
-Version:	0.2.5
-Release:	2
+Version:	0.3.2
+Release:	1
 Epoch:		1
 License:	BSD-like
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/libtirpc/%{name}-%{version}.tar.bz2
-# Source0-md5:	8cd41a5ef5a9b50d0fb6abb98af15368
+# Source0-md5:	373d5ad46b1d19759ec763a9f0afcf4d
 Patch0:		%{name}-link.patch
+Patch1:		%{name}-0.3.3-rc1.patch
 URL:		http://sourceforge.net/projects/libtirpc/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake
@@ -74,6 +75,7 @@ Ten pakiet zawiera statyczną bibliotekę TI-RPC.
 
 %prep
 %setup -q
+%patch1 -p1
 %patch0 -p1
 
 %build
@@ -81,7 +83,8 @@ Ten pakiet zawiera statyczną bibliotekę TI-RPC.
 %{__aclocal}
 %{__autoconf}
 %{__automake}
-%configure
+%configure \
+	--disable-silent-rules
 
 %{__make}
 
