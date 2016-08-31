@@ -1,18 +1,17 @@
 Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
-Version:	0.3.2
+Version:	1.0.1
 Release:	1
 Epoch:		1
-License:	BSD-like
+License:	BSD
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/libtirpc/%{name}-%{version}.tar.bz2
-# Source0-md5:	373d5ad46b1d19759ec763a9f0afcf4d
+# Source0-md5:	36ce1c0ff80863bb0839d54aa0b94014
 Patch0:		%{name}-link.patch
-Patch1:		%{name}-0.3.3-rc1.patch
 URL:		http://sourceforge.net/projects/libtirpc/
 BuildRequires:	autoconf >= 2.50
-BuildRequires:	automake
+BuildRequires:	automake >= 1:1.11
 BuildRequires:	glibc >= 6:2.14-9.1
 BuildRequires:	heimdal-devel
 BuildRequires:	libtool
@@ -75,7 +74,6 @@ Ten pakiet zawiera statyczną bibliotekę TI-RPC.
 
 %prep
 %setup -q
-%patch1 -p1
 %patch0 -p1
 
 %build
@@ -114,10 +112,10 @@ rm -rf $RPM_BUILD_ROOT
 
 %files
 %defattr(644,root,root,755)
-%doc AUTHORS ChangeLog NEWS README
+%doc AUTHORS COPYING ChangeLog NEWS README THANKS TODO
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/netconfig
-%attr(755,root,root) /%{_lib}/libtirpc.so.*.*
-%attr(755,root,root) %ghost /%{_lib}/libtirpc.so.1
+%attr(755,root,root) /%{_lib}/libtirpc.so.*.*.*
+%attr(755,root,root) %ghost /%{_lib}/libtirpc.so.3
 %{_mandir}/man5/netconfig.5*
 
 %files devel
