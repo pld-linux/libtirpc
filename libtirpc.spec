@@ -1,13 +1,13 @@
 Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
-Version:	1.0.3
+Version:	1.1.4
 Release:	1
 Epoch:		1
 License:	BSD
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/libtirpc/%{name}-%{version}.tar.bz2
-# Source0-md5:	f8403a10695348854e71d525c4db5931
+# Source0-md5:	f5d2a623e9dfbd818d2f3f3a4a878e3a
 Patch0:		%{name}-link.patch
 URL:		http://sourceforge.net/projects/libtirpc/
 BuildRequires:	autoconf >= 2.50
@@ -96,7 +96,7 @@ install -d $RPM_BUILD_ROOT{%{_sysconfdir},/%{_lib},%{_mandir}/man{3,5}}
 %{__make} -C doc install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-mv -f $RPM_BUILD_ROOT%{_libdir}/libtirpc.so.* $RPM_BUILD_ROOT/%{_lib}
+%{__mv} $RPM_BUILD_ROOT%{_libdir}/libtirpc.so.* $RPM_BUILD_ROOT/%{_lib}
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libtirpc.so
 ln -sf /%{_lib}/$(cd $RPM_BUILD_ROOT/%{_lib}; echo lib*.so.*.*) \
 	$RPM_BUILD_ROOT%{_libdir}/libtirpc.so
@@ -113,6 +113,7 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc AUTHORS COPYING ChangeLog NEWS README THANKS TODO
+%config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/bindresvport.blacklist
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/netconfig
 %attr(755,root,root) /%{_lib}/libtirpc.so.*.*.*
 %attr(755,root,root) %ghost /%{_lib}/libtirpc.so.3
