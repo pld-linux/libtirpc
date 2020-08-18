@@ -1,13 +1,13 @@
 Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
-Version:	1.1.4
+Version:	1.2.6
 Release:	1
 Epoch:		1
 License:	BSD
 Group:		Libraries
 Source0:	http://downloads.sourceforge.net/libtirpc/%{name}-%{version}.tar.bz2
-# Source0-md5:	f5d2a623e9dfbd818d2f3f3a4a878e3a
+# Source0-md5:	b25f9cc18bfad50f7c446c77f4ae00bb
 Patch0:		%{name}-link.patch
 URL:		http://sourceforge.net/projects/libtirpc/
 BuildRequires:	autoconf >= 2.50
@@ -78,8 +78,9 @@ Ten pakiet zawiera statyczną bibliotekę TI-RPC.
 
 %build
 %{__libtoolize}
-%{__aclocal}
+%{__aclocal} -I m4
 %{__autoconf}
+%{__autoheader}
 %{__automake}
 %configure \
 	--disable-silent-rules
@@ -98,7 +99,7 @@ install -d $RPM_BUILD_ROOT{%{_sysconfdir},/%{_lib},%{_mandir}/man{3,5}}
 
 %{__mv} $RPM_BUILD_ROOT%{_libdir}/libtirpc.so.* $RPM_BUILD_ROOT/%{_lib}
 %{__rm} $RPM_BUILD_ROOT%{_libdir}/libtirpc.so
-ln -sf /%{_lib}/$(cd $RPM_BUILD_ROOT/%{_lib}; echo lib*.so.*.*) \
+ln -sf /%{_lib}/$(basename $RPM_BUILD_ROOT/%{_lib}/libtirpc.so.*.*.*) \
 	$RPM_BUILD_ROOT%{_libdir}/libtirpc.so
 
 # obsoleted by pkgconfig

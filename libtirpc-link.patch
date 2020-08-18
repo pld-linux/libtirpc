@@ -1,5 +1,5 @@
---- libtirpc-1.0.1/src/Makefile.am.orig	2016-08-31 20:47:28.787746216 +0200
-+++ libtirpc-1.0.1/src/Makefile.am	2016-08-31 20:50:52.087743898 +0200
+--- libtirpc-1.2.6/src/Makefile.am.orig	2020-08-18 17:58:23.751237296 +0200
++++ libtirpc-1.2.6/src/Makefile.am	2020-08-18 18:18:31.174696123 +0200
 @@ -12,8 +12,9 @@
  
  lib_LTLIBRARIES = libtirpc.la
@@ -11,3 +11,12 @@
  
  libtirpc_la_SOURCES = auth_none.c auth_unix.c authunix_prot.c bindresvport.c clnt_bcast.c \
          clnt_dg.c clnt_generic.c clnt_perror.c clnt_raw.c clnt_simple.c \
+@@ -42,7 +42,7 @@
+ if GSS
+     libtirpc_la_SOURCES += auth_gss.c authgss_prot.c svc_auth_gss.c \
+ 			   rpc_gss_utils.c
+-    libtirpc_la_LIBADD = $(GSSAPI_LIBS)
++    libtirpc_la_LIBADD += $(GSSAPI_LIBS)
+     libtirpc_la_CFLAGS = -DHAVE_RPCSEC_GSS $(GSSAPI_CFLAGS)
+ endif
+ 
