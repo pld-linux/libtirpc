@@ -20,3 +20,12 @@
      libtirpc_la_CFLAGS = -DHAVE_RPCSEC_GSS $(GSSAPI_CFLAGS)
  endif
  
+--- libtirpc-1.3.1.orig/libtirpc.pc.in	2020-12-01 15:06:57.000000000 +0000
++++ libtirpc-1.3.1/libtirpc.pc.in	2020-12-06 23:28:58.851720446 +0000
+@@ -8,5 +8,5 @@
+ Requires:
+ Version: @PACKAGE_VERSION@
+ Libs: -L${libdir} -ltirpc
+-Libs.private: -lpthread
++Libs.private: -lpthread @GSSAPI_LIBS@
+ Cflags: -I${includedir}/tirpc

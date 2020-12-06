@@ -65,6 +65,7 @@ Summary:	Static TI-RPC library
 Summary(pl.UTF-8):	Statyczna biblioteka TI-RPC
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
+Requires:	heimdal-static
 
 %description static
 This package includes static TI-RPC library.
