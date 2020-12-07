@@ -1,3 +1,7 @@
+#
+# Conditional build
+%bcond_without	gssapi		# GSSAPI support
+
 Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
@@ -13,10 +17,10 @@ URL:		http://sourceforge.net/projects/libtirpc/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	glibc >= 6:2.14-9.1
-BuildRequires:	heimdal-devel
+%{?with_gssapi:BuildRequires:	heimdal-devel}
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
-Requires:	heimdal-libs
+%{?with_gssapi:Requires:	heimdal-libs}
 Requires:	glibc >= 6:2.14-9.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -50,7 +54,7 @@ Summary(pl.UTF-8):	Pliki programistyczne biblioteki TI-RPC
 Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	glibc-devel >= 6:2.14-9.1
-Requires:	heimdal-devel
+%{?with_gssapi:Requires:	heimdal-devel}
 
 %description devel
 This package includes header files necessary for developing programs
@@ -65,7 +69,7 @@ Summary:	Static TI-RPC library
 Summary(pl.UTF-8):	Statyczna biblioteka TI-RPC
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
-Requires:	heimdal-static
+%{?with_gssapi:Requires:	heimdal-static}
 
 %description static
 This package includes static TI-RPC library.
@@ -84,7 +88,8 @@ Ten pakiet zawiera statyczną bibliotekę TI-RPC.
 %{__autoheader}
 %{__automake}
 %configure \
-	--disable-silent-rules
+	--disable-silent-rules \
+        %{!?with_gssapi:--disable-gssapi}
 
 %{__make}
 
