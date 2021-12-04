@@ -6,7 +6,7 @@ Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
 Version:	1.3.2
-Release:	1
+Release:	2
 Epoch:		1
 License:	BSD
 Group:		Libraries
@@ -89,6 +89,7 @@ Ten pakiet zawiera statyczną bibliotekę TI-RPC.
 %{__automake}
 %configure \
 	--disable-silent-rules \
+	--enable-authdes \
         %{!?with_gssapi:--disable-gssapi}
 
 %{__make}
