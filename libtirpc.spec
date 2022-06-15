@@ -11,7 +11,7 @@ Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
 Version:	1.3.2
-Release:	3
+Release:	4
 Epoch:		1
 License:	BSD
 Group:		Libraries
@@ -122,9 +122,10 @@ install -d musl
 cd musl
 ../%configure \
 	CC="musl-gcc" \
-	CPPFLAGS="%{rpmcppflags} -I%{_includedir}/musql" \
+	CFLAGS="%{rpmcflags} -I%{_includedir}/musl -fno-stack-protector" \
+	LDFLAGS="%{rpmldflags} -L%{_libdir}/musl" \
 	--disable-silent-rules \
-        --enable-authdes \
+	--enable-authdes \
 	--disable-gssapi
 %{__make}
 cd ..
