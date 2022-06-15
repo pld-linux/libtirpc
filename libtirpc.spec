@@ -1,12 +1,17 @@
 #
 # Conditional build
 %bcond_without	gssapi		# GSSAPI support
+%bcond_without	musl		# minimal tirpc for musl usage
+
+%if %{with musl}
+%undefine	gssapi
+%endif
 
 Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
 Version:	1.3.2
-Release:	2
+Release:	3
 Epoch:		1
 License:	BSD
 Group:		Libraries
@@ -21,6 +26,10 @@ BuildRequires:	glibc >= 6:2.14-9.1
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
 %{?with_gssapi:Requires:	heimdal-libs}
+%if %{with musl}
+BuildRequires:	musl
+BuildRequires:	linux-musl-headers
+%endif
 Requires:	glibc >= 6:2.14-9.1
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
@@ -77,6 +86,17 @@ This package includes static TI-RPC library.
 %description static -l pl.UTF-8
 Ten pakiet zawiera statyczną bibliotekę TI-RPC.
 
+%package musl-devel
+Summary:	Static TI-RPC library for musl usage
+Summary(pl.UTF-8):	Statyczna biblioteka TI-RPC do użycia z musl
+Group:		Development/Libraries
+
+%description musl-devel
+This package includes static TI-RPC library for musl usage.
+
+%description musl-devel -l pl.UTF-8
+Ten pakiet zawiera statyczną bibliotekę TI-RPC do użycia z musl.
+
 %prep
 %setup -q
 %patch0 -p1
@@ -87,21 +107,47 @@ Ten pakiet zawiera statyczną bibliotekę TI-RPC.
 %{__autoconf}
 %{__autoheader}
 %{__automake}
-%configure \
+install -d build
+cd build
+../%configure \
 	--disable-silent-rules \
 	--enable-authdes \
         %{!?with_gssapi:--disable-gssapi}
 
 %{__make}
+cd ..
+
+%if %{with musl}
+install -d musl
+cd musl
+../%configure \
+	CC="musl-gcc" \
+	CPPFLAGS="%{rpmcppflags} -I%{_includedir}/musql" \
+	--disable-silent-rules \
+        --enable-authdes \
+	--disable-gssapi
+%{__make}
+cd ..
+%endif
 
 %install
 rm -rf $RPM_BUILD_ROOT
 install -d $RPM_BUILD_ROOT{%{_sysconfdir},/%{_lib},%{_mandir}/man{3,5}}
 
-%{__make} install \
+%{__make} -C build install \
 	DESTDIR=$RPM_BUILD_ROOT
 
-%{__make} -C doc install \
+%if %{with musl}
+%{__make} -C musl install \
+	DESTDIR=$(pwd)/musl/destdir
+
+install -d $RPM_BUILD_ROOT{%{_includedir}/musl,%{_libdir}/musl}
+mv musl/destdir/%{_includedir}/tirpc $RPM_BUILD_ROOT%{_includedir}/musl
+mv musl/destdir/%{_libdir}/libtirpc.a $RPM_BUILD_ROOT%{_libdir}/musl
+
+%endif
+
+%{__make} -C build/doc install \
 	DESTDIR=$RPM_BUILD_ROOT
 
 %{__mv} $RPM_BUILD_ROOT%{_libdir}/libtirpc.so.* $RPM_BUILD_ROOT/%{_lib}
@@ -142,3 +188,8 @@ rm -rf $RPM_BUILD_ROOT
 %files static
 %defattr(644,root,root,755)
 %{_libdir}/libtirpc.a
+
+%files musl-devel
+%defattr(644,root,root,755)
+%{_includedir}/musl/tirpc
+%{_libdir}/musl/libtirpc.a
