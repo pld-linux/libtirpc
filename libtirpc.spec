@@ -27,7 +27,7 @@ BuildRequires:	libtool
 BuildRequires:	pkgconfig
 %{?with_gssapi:Requires:	heimdal-libs}
 %if %{with musl}
-BuildRequires:	musl
+BuildRequires:	musl-devel
 BuildRequires:	linux-musl-headers
 %endif
 Requires:	glibc >= 6:2.14-9.1
