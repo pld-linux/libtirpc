@@ -10,13 +10,13 @@
 Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
-Version:	1.3.2
-Release:	5
+Version:	1.3.3
+Release:	1
 Epoch:		1
 License:	BSD
 Group:		Libraries
 Source0:	https://downloads.sourceforge.net/libtirpc/%{name}-%{version}.tar.bz2
-# Source0-md5:	cf4ca51f3fc401bea61c702c69171ab0
+# Source0-md5:	bacdad5c27dcf6e2830b3e26a1c8ed3f
 Patch0:		%{name}-link.patch
 URL:		http://sourceforge.net/projects/libtirpc/
 BuildRequires:	autoconf >= 2.50
@@ -143,9 +143,8 @@ install -d $RPM_BUILD_ROOT{%{_sysconfdir},/%{_lib},%{_mandir}/man{3,5}}
 	DESTDIR=$(pwd)/musl/destdir
 
 install -d $RPM_BUILD_ROOT{%{_includedir}/musl,%{_libdir}/musl}
-mv musl/destdir/%{_includedir}/tirpc $RPM_BUILD_ROOT%{_includedir}/musl
-mv musl/destdir/%{_libdir}/libtirpc.a $RPM_BUILD_ROOT%{_libdir}/musl
-
+%{__mv} musl/destdir%{_includedir}/tirpc $RPM_BUILD_ROOT%{_includedir}/musl
+%{__mv} musl/destdir%{_libdir}/libtirpc.a $RPM_BUILD_ROOT%{_libdir}/musl
 %endif
 
 %{__make} -C build/doc install \
@@ -190,7 +189,9 @@ rm -rf $RPM_BUILD_ROOT
 %defattr(644,root,root,755)
 %{_libdir}/libtirpc.a
 
+%if %{with musl}
 %files musl-devel
 %defattr(644,root,root,755)
 %{_includedir}/musl/tirpc
 %{_libdir}/musl/libtirpc.a
+%endif
