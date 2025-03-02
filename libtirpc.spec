@@ -11,7 +11,7 @@ Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
 Version:	1.3.6
-Release:	1
+Release:	2
 Epoch:		1
 License:	BSD
 Group:		Libraries
@@ -32,6 +32,7 @@ BuildRequires:	linux-musl-headers
 %endif
 Requires:	glibc >= 6:2.14-9.1
 %{?with_gssapi:Requires:	heimdal-libs}
+Obsoletes:	librpcsecgss < 0.20
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -65,6 +66,7 @@ Group:		Development/Libraries
 Requires:	%{name} = %{epoch}:%{version}-%{release}
 Requires:	glibc-devel >= 6:2.14-9.1
 %{?with_gssapi:Requires:	heimdal-devel}
+Obsoletes:	librpcsecgss-devel < 0.20
 
 %description devel
 This package includes header files necessary for developing programs
@@ -80,6 +82,7 @@ Summary(pl.UTF-8):	Statyczna biblioteka TI-RPC
 Group:		Development/Libraries
 Requires:	%{name}-devel = %{epoch}:%{version}-%{release}
 %{?with_gssapi:Requires:	heimdal-static}
+Obsoletes:	librpcsecgss-static < 0.20
 
 %description static
 This package includes static TI-RPC library.
