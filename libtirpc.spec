@@ -10,13 +10,13 @@
 Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
-Version:	1.3.5
+Version:	1.3.6
 Release:	1
 Epoch:		1
 License:	BSD
 Group:		Libraries
 Source0:	https://downloads.sourceforge.net/libtirpc/%{name}-%{version}.tar.bz2
-# Source0-md5:	59a5aba60d99621963d0109f95b622f2
+# Source0-md5:	8de9e6af16c4bc65ba40d0924745f5b7
 Patch0:		%{name}-link.patch
 URL:		http://sourceforge.net/projects/libtirpc/
 BuildRequires:	autoconf >= 2.50
@@ -25,12 +25,13 @@ BuildRequires:	glibc >= 6:2.14-9.1
 %{?with_gssapi:BuildRequires:	heimdal-devel}
 BuildRequires:	libtool
 BuildRequires:	pkgconfig
-%{?with_gssapi:Requires:	heimdal-libs}
+BuildRequires:	rpmbuild(macros) >= 2.043
 %if %{with musl}
 BuildRequires:	musl-devel
 BuildRequires:	linux-musl-headers
 %endif
 Requires:	glibc >= 6:2.14-9.1
+%{?with_gssapi:Requires:	heimdal-libs}
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
@@ -102,6 +103,7 @@ Ten pakiet zawiera statyczną bibliotekę TI-RPC do użycia z musl.
 %patch -P0 -p1
 
 %build
+%define	configuredir ..
 %{__libtoolize}
 %{__aclocal} -I m4
 %{__autoconf}
@@ -109,7 +111,7 @@ Ten pakiet zawiera statyczną bibliotekę TI-RPC do użycia z musl.
 %{__automake}
 install -d build
 cd build
-../%configure \
+%configure \
 	--disable-silent-rules \
 	--enable-authdes \
         %{!?with_gssapi:--disable-gssapi}
@@ -120,7 +122,7 @@ cd ..
 %if %{with musl}
 install -d musl
 cd musl
-../%configure \
+%configure \
 	CC="musl-gcc" \
 	CFLAGS="%{rpmcflags} -I%{_includedir}/musl -fno-stack-protector" \
 	LDFLAGS="%{rpmldflags} -L%{_libdir}/musl" \
