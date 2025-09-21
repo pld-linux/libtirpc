@@ -10,15 +10,15 @@
 Summary:	Transport Independent RPC Library
 Summary(pl.UTF-8):	Biblioteka RPC niezależnego od transportu
 Name:		libtirpc
-Version:	1.3.6
-Release:	2
+Version:	1.3.7
+Release:	1
 Epoch:		1
 License:	BSD
 Group:		Libraries
 Source0:	https://downloads.sourceforge.net/libtirpc/%{name}-%{version}.tar.bz2
-# Source0-md5:	8de9e6af16c4bc65ba40d0924745f5b7
+# Source0-md5:	74f97df306b8d6149d3d9898a1d44c6e
 Patch0:		%{name}-link.patch
-URL:		http://sourceforge.net/projects/libtirpc/
+URL:		https://sourceforge.net/projects/libtirpc/
 BuildRequires:	autoconf >= 2.50
 BuildRequires:	automake >= 1:1.11
 BuildRequires:	glibc >= 6:2.14-9.1
@@ -175,12 +175,12 @@ rm -rf $RPM_BUILD_ROOT
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/bindresvport.blacklist
 %config(noreplace) %verify(not md5 mtime size) %{_sysconfdir}/netconfig
 %attr(755,root,root) /%{_lib}/libtirpc.so.*.*.*
-%attr(755,root,root) %ghost /%{_lib}/libtirpc.so.3
+%ghost /%{_lib}/libtirpc.so.3
 %{_mandir}/man5/netconfig.5*
 
 %files devel
 %defattr(644,root,root,755)
-%attr(755,root,root) %{_libdir}/libtirpc.so
+%{_libdir}/libtirpc.so
 %{_includedir}/tirpc
 %{_pkgconfigdir}/libtirpc.pc
 %{_mandir}/man3/bindresvport.3t*
